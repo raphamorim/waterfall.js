@@ -25,6 +25,15 @@
     this._normalize(el, childs)
   }
 
+  this._getOuterHeight = function(el) {
+    var styles = window.getComputedStyle(el),
+        margin = parseFloat(styles['marginTop']) + 
+            parseFloat(styles['marginBottom']) +
+            parseFloat(styles['paddingTop']) + 
+            parseFloat(styles['paddingBottom']);
+    return Math.ceil(el.offsetHeight + margin);
+  }
+
   this._normalize = function(el, childs) {
     el.style.display        = 'flex'
     el.style.flexFlow       = 'column wrap'
@@ -47,13 +56,13 @@
         break;
       ++grids;
     }
-
-    console.log('Grids', grids)
+    console.log(grids)
     this._orderItems(el, childs, grids);
   }
 
   this._orderItems = function(el, childs, grids) {
-    var time = childs.length,
+    var self = this,
+        time = childs.length,
         current = 0,
         lapse = Math.round(time/grids),
         order = 0,
@@ -64,7 +73,7 @@
     while(order < time) {
       current = ~~current
       childs[order].style.order = current
-      maxHeightPerLine = childs[order].offsetHeight
+      maxHeightPerLine = self._getOuterHeight(childs[order])
       ++order
       inc = current
       for (var c = 1; c < grids; c++) {
@@ -72,16 +81,18 @@
         if (!childs[order]) 
           break;
         childs[order].style.order = inc
-        if (childs[order].offsetHeight > maxHeightPerLine)
-          maxHeightPerLine = childs[order].offsetHeight
+        var cHeight = self._getOuterHeight(childs[order])
+        if (cHeight > maxHeightPerLine)
+          maxHeightPerLine = cHeight
         ++order
       }
       ++current
       totalHeight += maxHeightPerLine
     }
 
-    if (el.style.height < totalHeight / 2)
-      el.style.height = (totalHeight + 125) + 'px'
+    if (el.style.height < totalHeight / 2){
+      el.style.height = (totalHeight + 'px')
+    }
     el.style.visibility = 'visible'
   }
 
