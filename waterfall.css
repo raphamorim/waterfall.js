@@ -50,7 +50,7 @@ header h3 {
 
 .waterfall {
   background-color: #f2f2f2;
-  padding: 10px;
+  padding: 0;
   width: 1120px;
   height: 270px;
   margin: 0 auto;
@@ -69,7 +69,6 @@ header h3 {
   -webkit-animation: anim .8s ease-in-out;
   animation: anim .8s ease-in-out;
 }
-
 
 @-webkit-keyframes anim {
   0% {
@@ -112,14 +111,9 @@ header h3 {
   height: 250px;
 }
 
-.waterfall .item:nth-child(3n+1) {
-  background-color: green;
-  height: 500px;
-}
-
 .waterfall .item:nth-child(2n+4) {
   background-color: orange;
-  height: 100px;
+  height: 50px;
 }
 
 .waterfall .item:nth-child(2n+1) {
