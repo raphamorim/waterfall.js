@@ -77,22 +77,8 @@
     return list;
   }
 
-  this._getMaxHeight = function(elms, ordering, ncols) {
-    var maxHeight = 0,
-        height = 0;
-    for (var i = 0; i < ordering.length; i++) {
-      height = height + elms[i].offsetHeight;
-    }
-    return Math.round(height / ncols);
-  }
-
   this._insertElements = function(el, elms, orderingFunction, getMaxHeight, ncols) {
     var ordering = orderingFunction(elms, ncols);
-        maxHeight = getMaxHeight(elms, ordering, ncols);
-
-    if (el.clientHeight < 100){
-      el.style.height = (maxHeight * 1.3 + 'px')
-    }
 
     el.innerHTML = '';
     el.style.visibility = 'visible';
