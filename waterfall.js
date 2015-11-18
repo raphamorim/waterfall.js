@@ -22,7 +22,7 @@
 
     var childs = document.querySelectorAll((items || this.defaults.items))
     el.style.visibility = 'hidden'
-    this._normalize(el, childs)
+    this._getColumnsNumber(el, childs)
   }
 
   this._getOuterHeight = function(el) {
@@ -34,19 +34,8 @@
     return Math.ceil(el.offsetHeight + margin);
   }
 
-  this._normalize = function(el, childs) {
-    el.style.display        = 'flex'
-    el.style.flexFlow       = 'column wrap'
-    el.style.justifyContent = 'flex-start'
-    el.style.alignItems     = 'flex-start'
-    var body = document.querySelector('body')
-    body.style.boxSizing    = 'border-box'
-
-    this._getGrids(el, childs)
-  }
-
-  this._getGrids = function(el, childs) {
-    var grids = 0,
+  this._getColumnsNumber = function(el, childs) {
+    var ncols = 0,
         columnWidth = 0,
         containerWidth = el.offsetWidth; 
 
@@ -54,47 +43,83 @@
       columnWidth += childs[i].offsetWidth;
       if (columnWidth > containerWidth)
         break;
-      ++grids;
+      ++ncols;
     }
-    console.log(grids)
-    this._orderItems(el, childs, grids);
+    
+    this._normalize(el, childs, ncols);
   }
 
-  this._orderItems = function(el, childs, grids) {
+  this._normalize = function(el, childs, grids) {
+    el.style.columnGap = '10px'
+    el.style.columnCount = grids
+    el.style.columnFill = 'balance'
+    el.style.webkitColumnGap = '10px'
+    el.style.webkitColumnCount = grids
+    el.style.webkitColumnFill = 'balance'
+    el.style.MozColumnGap = '15px'
+    el.style.MozColumnCount = grids
+    el.style.MozColumnFill = 'balance'
+
+    this._insertElements(el, childs, this._orderGrid, this._getMaxHeight, grids)
+  }
+
+  this._orderGrid = function(childs, ncols) {
     var self = this,
-        time = childs.length,
-        current = 0,
-        lapse = Math.round(time/grids),
-        order = 0,
-        inc = 0;
-    var maxHeightPerLine = 0,
-        totalHeight = 0;
-  
-    while(order < time) {
-      current = ~~current
-      childs[order].style.order = current
-      maxHeightPerLine = self._getOuterHeight(childs[order])
-      ++order
-      inc = current
-      for (var c = 1; c < grids; c++) {
-        inc = inc + lapse
-        if (!childs[order]) 
-          break;
-        childs[order].style.order = inc
-        var cHeight = self._getOuterHeight(childs[order])
-        if (cHeight > maxHeightPerLine)
-          maxHeightPerLine = cHeight
-        ++order
-      }
-      ++current
-      totalHeight += maxHeightPerLine
+        nelms = childs.length,
+        list = [],
+        ncolsRange = self._range(ncols);
+
+    for (var i = 0; i < ncols; i++) {      
+      var columnRange = self._range(ncolsRange[i] + ncols, nelms, ncols);
+      columnRange.unshift(ncolsRange[i]);
+      list = list.concat(columnRange);
+    }
+    return list;
+  }
+
+  this._getMaxHeight = function(elms, ordering, ncols) {
+    var maxHeight = 0,
+        height = 0;
+    for (var i = 0; i < ordering.length; i++) {
+      height = height + elms[i].offsetHeight;
+    }
+    return Math.round(height / ncols);
+  }
+
+  this._insertElements = function(el, elms, orderingFunction, getMaxHeight, ncols) {
+    var ordering = orderingFunction(elms, ncols);
+        maxHeight = getMaxHeight(elms, ordering, ncols);
+
+    if (el.clientHeight < 100){
+      el.style.height = (maxHeight * 1.3 + 'px')
     }
 
-    if (el.style.height < totalHeight / 2){
-      el.style.height = (totalHeight + 'px')
+    el.innerHTML = '';
+    el.style.visibility = 'visible';
+    for (var i = 0; i < elms.length; i++) {
+      el.appendChild(elms[ordering[i]]);
     }
-    el.style.visibility = 'visible'
   }
+
+  this._range = function(start, stop, step) {
+    if (typeof stop == 'undefined') {
+      stop = start;
+      start = 0;
+    }
+
+    if (typeof step == 'undefined')
+      step = 1;
+
+    if ((step > 0 && start >= stop) || (step < 0 && start <= stop))
+      return [];
+
+    var result = [];
+    for (var i = start; step > 0 ? i < stop : i > stop; i += step) {
+      result.push(i);
+    }
+
+    return result;
+  };
 
   if (typeof window === "object")
     window.waterfall = this.init.bind(this)
