@@ -25,15 +25,6 @@
     this._getColumnsNumber(el, childs)
   }
 
-  this._getOuterHeight = function(el) {
-    var styles = window.getComputedStyle(el),
-        margin = parseFloat(styles['marginTop']) + 
-            parseFloat(styles['marginBottom']) +
-            parseFloat(styles['paddingTop']) + 
-            parseFloat(styles['paddingBottom']);
-    return Math.ceil(el.offsetHeight + margin);
-  }
-
   this._getColumnsNumber = function(el, childs) {
     var ncols = 0,
         columnWidth = 0,
