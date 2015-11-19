@@ -54,12 +54,13 @@ header h3 {
   width: 1120px;
   height: auto;
   margin: 0 auto;
+  visibility: visible;
 }
 
 .waterfall .item {
-  display: inline-block;
   background-color: orange;
   text-align: center;
+  display: inline-block;
   font-size: 40px;
   color: #FFF;
   height: 250px;
@@ -109,7 +110,7 @@ header h3 {
 
 .waterfall .item:nth-child(1n+1) {
   background-color: red;
-  height: 250px;
+  height: 150px;
 }
 
 .waterfall .item:nth-child(2n+4) {
