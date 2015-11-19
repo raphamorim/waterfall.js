@@ -67,23 +67,56 @@
     var self = this,
         nelms = childs.length,
         list = [],
+        columns = [],
         ncolsRange = self._range(ncols);
 
     for (var i = 0; i < ncols; i++) {      
       var columnRange = self._range(ncolsRange[i] + ncols, nelms, ncols);
       columnRange.unshift(ncolsRange[i]);
       list = list.concat(columnRange);
+      columns.push(columnRange);
     }
-    return list;
+    return [list, columns];
   }
 
   this._insertElements = function(el, elms, orderingFunction, getMaxHeight, ncols) {
-    var ordering = orderingFunction(elms, ncols);
+    var ordering = orderingFunction(elms, ncols),
+        list = ordering[0],
+        columns = ordering[1];
 
     el.innerHTML = '';
-    el.style.visibility = 'visible';
     for (var i = 0; i < elms.length; i++) {
-      el.appendChild(elms[ordering[i]]);
+      el.appendChild(elms[list[i]]);
+    }
+
+    this._adjustGrid(el, elms, columns, ncols);
+    el.style.visibility = 'visible';
+  }
+
+  this._createElement = function(el, parent, height) {
+    var div = document.createElement('div'),
+        content = document.createTextNode(''); 
+    div.style.height = (height + 'px');
+    div.style.background = 'transparent';
+    div.classList.add('item');
+    el.insertBefore(div, parent);
+  }
+
+  this._adjustGrid = function(el, elms, columns, ncols) {
+    var sizes = this._range(ncols),
+        maxHeight = 0,
+        diff = 0;
+    for (var i = 0; i < columns.length; i++) {
+      for (var y = 0; y < columns[i].length; y++) {
+        sizes[i] += elms[columns[i][y]].offsetHeight;
+      }
+      if (sizes[i] > maxHeight)
+        maxHeight =  sizes[i]
+    }
+
+    for (var i = 0; i < (columns.length - 1); i++) {
+      diff = Math.abs(maxHeight - sizes[i]);
+      this._createElement(el, elms[columns[i+1][0]], diff)
     }
   }
 
