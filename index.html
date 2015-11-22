@@ -31,6 +31,8 @@
             <div class="item">13</div>
             <div class="item">14</div>
             <div class="item">15</div>
+            <div class="item">16</div>
+            <div class="item">17</div>
         </div>
     </section>
     <section>
@@ -38,7 +40,53 @@
     </section>
     <script src="waterfall.js"></script>
     <script>
-        waterfall();
+        //waterfall();
+        var items = [].slice.call(document.querySelectorAll('.item'));
+        var container = document.querySelector('.waterfall');
+        container.style.position = 'relative';
+        items.forEach(function(item){
+            item.style.position = 'absolute';
+        });
+
+        function px(n){ return n + 'px';}
+        function max(l){ return Math.max.apply(Math, l);}
+        function sum(a, b){ return a + b;}
+
+        function y(el){ return parseFloat(el.style.top) || 0; }
+        function height(el){ return el.clientHeight; }
+        function width(el){ return el.clientWidth; }
+
+        function column(columns, colIndex){
+          return function(item, i){
+            return i % columns == colIndex;
+          }
+        }
+
+        var columns = [0, 1, 2].map(function(i){
+          return items.filter(column(3, i));
+        });
+
+        var totalHeight = max(columns.map(function(column){
+          return column.map(height).reduce(sum);
+        }));
+
+        function setLeft(item, i){
+          item.style.left = px(width(item) * (i % 3));
+        }
+
+        function setTop(item, i, items){
+          if(i > 0){
+            var prev =  items[i - 1],
+                top =  y(prev) + height(prev);
+            item.style.top = px(top);
+          }
+        }
+
+        container.style.height = px(totalHeight);
+        columns.forEach(function(column){
+          column.forEach(setTop);
+        });
+        items.forEach(setLeft);
     </script>
 </body>
 </html>
