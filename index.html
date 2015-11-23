@@ -41,6 +41,7 @@
     <script src="waterfall.js"></script>
     <script>
     function waterfall(container){
+        // Freeze the list of nodes
         var els = [].map.call(container.children, function(el){
             el.style.position = 'absolute';
             return el;
@@ -49,12 +50,16 @@
 
         function px(n){ return n + 'px';}
 
-        function y(el){ return el? parseFloat(el.style.top) || 0 : 0; }
-        function x(el){ return el? parseFloat(el.style.left) || 0 : 0; }
-        function width(el){ return el? el.clientWidth : 0; }
-        function height(el){ return el? el.clientHeight : 0; }
-        function bottom(el){ return y(el) + height(el);}
-        function right(el){ return x(el) + width(el);}
+        function margin(name, el){
+          var style = window.getComputedStyle(el);
+          return parseFloat(style['margin' + name]) || 0;
+        }
+        function y(el){ return parseFloat(el.style.top) ; }
+        function x(el){ return parseFloat(el.style.left); }
+        function width(el){ return el.clientWidth; }
+        function height(el){ return el.clientHeight; }
+        function bottom(el){ return y(el) + height(el) + margin('Bottom', el);}
+        function right(el){ return x(el) + width(el) + margin('Right', el);}
 
         function sort(l){
           l = l.sort(function(a, b){
@@ -67,28 +72,32 @@
         }
 
         var border = [];
+        if(els.length){
+          els[0].style.top = '0px';
+          els[0].style.left = px(margin('Left', els[0]));
+          border.push(els[0]);
+        }
 
-        for(var i = 0; i < els.length; i++){
-          var prev = els[i - 1],
-              el = els[i],
-              thereIsSpace = right(prev) + width(el) <= width(container);
-
-          if(!thereIsSpace) break;
-          el.style.top = px(y(prev));
-          el.style.left = px(right(prev));
+        for(var i = 1; i < els.length; i++){
+            var prev = els[i - 1],
+                el = els[i],
+                thereIsSpace = right(prev) + width(el) <= width(container);
+            if(!thereIsSpace) break;
+            el.style.top = prev.style.top;
+            el.style.left = px(right(prev) + margin('Left', el));
           border.push(el);
         }
 
         for(; i < els.length; i++){
-          var el = els[i];
           sort(border)
-          var minEl = border.pop();
-          el.style.top = px(bottom(minEl));
+          var el = els[i],
+              minEl = border.pop();
+          el.style.top = px(bottom(minEl) + margin('Top', el));
           el.style.left = px(x(minEl));
           border.push(el);
         };
 
-        container.style.height = px(Math.max.apply(Math, border.map(bottom)));
+        container.style.height = px(bottom(border[0]) + margin('Bottom', border[0]));
     }
 
     var container = document.querySelector('.waterfall');
