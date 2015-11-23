@@ -40,53 +40,60 @@
     </section>
     <script src="waterfall.js"></script>
     <script>
-        //waterfall();
-        var items = [].slice.call(document.querySelectorAll('.item'));
-        var container = document.querySelector('.waterfall');
-        container.style.position = 'relative';
-        items.forEach(function(item){
-            item.style.position = 'absolute';
+    function waterfall(container){
+        var els = [].map.call(container.children, function(el){
+            el.style.position = 'absolute';
+            return el;
         });
+        container.style.position = 'relative';
 
         function px(n){ return n + 'px';}
-        function max(l){ return Math.max.apply(Math, l);}
-        function sum(a, b){ return a + b;}
 
-        function y(el){ return parseFloat(el.style.top) || 0; }
-        function height(el){ return el.clientHeight; }
-        function width(el){ return el.clientWidth; }
+        function y(el){ return el? parseFloat(el.style.top) || 0 : 0; }
+        function x(el){ return el? parseFloat(el.style.left) || 0 : 0; }
+        function width(el){ return el? el.clientWidth : 0; }
+        function height(el){ return el? el.clientHeight : 0; }
+        function bottom(el){ return y(el) + height(el);}
+        function right(el){ return x(el) + width(el);}
 
-        function column(columns, colIndex){
-          return function(item, i){
-            return i % columns == colIndex;
-          }
+        function sort(l){
+          l = l.sort(function(a, b){
+            if(bottom(a) === bottom(b)){
+              return x(b) - x(a);
+            }else{
+              return bottom(b) - bottom(a);
+            }
+          })
         }
 
-        var columns = [0, 1, 2].map(function(i){
-          return items.filter(column(3, i));
-        });
+        var border = [];
 
-        var totalHeight = max(columns.map(function(column){
-          return column.map(height).reduce(sum);
-        }));
+        for(var i = 0; i < els.length; i++){
+          var prev = els[i - 1],
+              el = els[i],
+              thereIsSpace = right(prev) + width(el) <= width(container);
 
-        function setLeft(item, i){
-          item.style.left = px(width(item) * (i % 3));
+          if(!thereIsSpace) break;
+          el.style.top = px(y(prev));
+          el.style.left = px(right(prev));
+          border.push(el);
         }
 
-        function setTop(item, i, items){
-          if(i > 0){
-            var prev =  items[i - 1],
-                top =  y(prev) + height(prev);
-            item.style.top = px(top);
-          }
-        }
+        for(; i < els.length; i++){
+          var el = els[i];
+          sort(border)
+          var minEl = border.pop();
+          el.style.top = px(bottom(minEl));
+          el.style.left = px(x(minEl));
+          border.push(el);
+        };
 
-        container.style.height = px(totalHeight);
-        columns.forEach(function(column){
-          column.forEach(setTop);
-        });
-        items.forEach(setLeft);
+        container.style.height = px(Math.max.apply(Math, border.map(bottom)));
+    }
+
+    var container = document.querySelector('.waterfall');
+    waterfall(container);
+
     </script>
 </body>
 </html>
