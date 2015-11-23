@@ -71,11 +71,11 @@
           })
         }
 
-        var border = [];
+        var boundary = [];
         if(els.length){
           els[0].style.top = '0px';
           els[0].style.left = px(margin('Left', els[0]));
-          border.push(els[0]);
+          boundary.push(els[0]);
         }
 
         for(var i = 1; i < els.length; i++){
@@ -85,19 +85,19 @@
             if(!thereIsSpace) break;
             el.style.top = prev.style.top;
             el.style.left = px(right(prev) + margin('Left', el));
-          border.push(el);
+          boundary.push(el);
         }
 
         for(; i < els.length; i++){
-          sort(border)
+          sort(boundary)
           var el = els[i],
-              minEl = border.pop();
+              minEl = boundary.pop();
           el.style.top = px(bottom(minEl) + margin('Top', el));
           el.style.left = px(x(minEl));
-          border.push(el);
+          boundary.push(el);
         };
 
-        container.style.height = px(bottom(border[0]) + margin('Bottom', border[0]));
+        container.style.height = px(bottom(boundary[0]) + margin('Bottom', boundary[0]));
     }
 
     var container = document.querySelector('.waterfall');
