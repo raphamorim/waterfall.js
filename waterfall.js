@@ -37,7 +37,7 @@ function waterfall(container){
             }else{
                 return bottom(b) - bottom(a);
             }
-        })
+        });
     }
 
     var boundary = [];
@@ -68,7 +68,7 @@ function waterfall(container){
         el.style.top = px(bottom(minEl) + margin('Top', el));
         el.style.left = px(x(minEl));
         boundary.push(el);
-    };
+    }
 
     sort(boundary);
     var maxEl = boundary[0];
