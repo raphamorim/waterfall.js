@@ -64,7 +64,7 @@ function waterfall(container){
     for(; i < els.length; i++){
         sort(boundary);
         var el = els[i],
-        minEl = boundary.pop();
+            minEl = boundary.pop();
         el.style.top = px(bottom(minEl) + margin('Top', el));
         el.style.left = px(x(minEl));
         boundary.push(el);
