@@ -62,7 +62,7 @@ function waterfall(container){
 
     // Place following elements at the bottom of the smallest column.
     for(; i < els.length; i++){
-        sort(boundary)
+        sort(boundary);
         var el = els[i],
         minEl = boundary.pop();
         el.style.top = px(bottom(minEl) + margin('Top', el));
@@ -70,5 +70,7 @@ function waterfall(container){
         boundary.push(el);
     };
 
-    container.style.height = px(bottom(boundary[0]) + margin('Bottom', boundary[0]));
+    sort(boundary);
+    var maxEl = boundary[0];
+    container.style.height = px(bottom(maxEl) + margin('Bottom', maxEl));
 }
