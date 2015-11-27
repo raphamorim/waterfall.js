@@ -1,0 +1,19 @@
+{
+  "name": "waterfall",
+  "version": "1.0.0",
+  "homepage": "http://raphamorim.com/waterfall.js",
+  "authors": [
+    "Raphael Amorim <rapha850@gmail.com>"
+  ],
+  "description": "Pinterest Grid in Just 1KB",
+  "main": "waterfall.js",
+  "keywords": [
+    "waterfall",
+    "pinterest",
+    "masonry",
+    "grid",
+    "layout",
+    "columns"
+  ],
+  "license": "MIT"
+}

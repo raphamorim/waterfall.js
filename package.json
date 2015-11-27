@@ -1,0 +1,27 @@
+{
+  "name": "waterfall.js",
+  "version": "1.0.0",
+  "description": "Pinterest Grid in Just 1KB",
+  "main": "waterfall.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "waterfall",
+    "pinterest",
+    "masonry",
+    "grid",
+    "layout",
+    "columns"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raphamorim/waterfall.js.git"
+  },
+  "author": "Raphael Amorim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raphamorim/waterfall.js/issues"
+  },
+  "homepage": "https://github.com/raphamorim/waterfall.js#readme"
+}
