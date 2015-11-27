@@ -4,54 +4,76 @@ body {
 
 section {
   margin: 0px auto;
-  width: 1120px;
+  width: 920px;
 }
 
-header {
+section.header {
   padding: 15px;
 }
 
-header .signature {
+section.header .signature {
   font-style: italic;
   letter-spacing: 0.001em;
   font-size: 15px;
   color: #555;
 }
 
-header .signature > a {
+section.header .signature > a {
   text-decoration: none;
   transition: all 500ms ease;
 }
 
-header .signature > a:hover span {
+section.header .signature > a:hover span {
   opacity: .9;
 }
 
-header .signature > a > span {
+section.header .signature > a > span {
   background: #F1664F;
   padding: 10px 8px;
   margin-left: 5px;
   color: #FFF;
 }
 
-header h1 {
+section.header h1 {
   color: #5E5B64;
   font-size: 60px;
 }
 
-header h2 {
+section.header h2 {
   margin-top: -30px;
   color: #F1664F;
 }
 
-header h3 {
+section.header h3 {
   color: #5E5B64;
+}
+
+section.topic h2 {
+  margin-top: 60px;
+  font-size: 35px;
+  color: #5E5B64;
+}
+
+section.topic p {
+  color: #555;
+  font-size: 22px;
+  font-weight: lighter;
+}
+
+.btn {
+  padding: 10px;
+  text-decoration: none;
+}
+
+.btn.download {
+  background: #63C7EA;
+  color: #FFF;
 }
 
 .waterfall {
   background-color: #f2f2f2;
   padding: 0;
-  width: 1120px;
+  width: 920px;
   height: auto;
   margin: 0 auto;
   visibility: visible;
@@ -64,7 +86,7 @@ header h3 {
   font-size: 40px;
   color: #FFF;
   height: 250px;
-  width: 300px;
+  width: 262px;
   margin: 1%;
   padding: 10px;
 
@@ -121,4 +143,13 @@ header h3 {
 .waterfall .item:nth-child(2n+1) {
   background-color: pink;
   height: 50px;
+}
+
+footer {
+  height: 30px;
+  width: 100%;
+  background: #5E5B64;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 100px;
 }
