@@ -10,6 +10,9 @@
 */
 
 function waterfall(container){
+    if(typeof(container) === 'string')
+        container = document.querySelector(container);
+
     // Freeze the list of nodes
     var els = [].map.call(container.children, function(el){
         el.style.position = 'absolute';
@@ -17,18 +20,17 @@ function waterfall(container){
     });
     container.style.position = 'relative';
 
-    function px(n){ return n + 'px';}
-
     function margin(name, el){
         var style = window.getComputedStyle(el);
         return parseFloat(style['margin' + name]) || 0;
     }
+    function px(n){ return n + 'px'; }
     function y(el){ return parseFloat(el.style.top) ; }
     function x(el){ return parseFloat(el.style.left); }
     function width(el){ return el.clientWidth; }
     function height(el){ return el.clientHeight; }
-    function bottom(el){ return y(el) + height(el) + margin('Bottom', el);}
-    function right(el){ return x(el) + width(el) + margin('Right', el);}
+    function bottom(el){ return y(el) + height(el) + margin('Bottom', el); }
+    function right(el){ return x(el) + width(el) + margin('Right', el); }
 
     function sort(l){
         l = l.sort(function(a, b){
