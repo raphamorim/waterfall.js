@@ -1,23 +1,16 @@
 # Waterfall.js
 
-> Tired of use creepy hacks or heavy ways to Grid based on Pinterest works?
+> Tired of use creepy hacks or heavy ways to get a Grid based on Pinterest?
 
 1KB and Works without any dependency \o/
 
 ## The "Why"
 
-Currently the best option today to do this job is Masonry, but it's very heavy and have full dependency of jQuery. This isn't a problem is most cases, but when perfomance and page weight matters the best case is try other options: maybe pure CSS? Impossible?
+Currently the best option today to do this job is Masonry, but it's very heavy and have dependency of jQuery. Please understand: this isn't a problem is most cases, but in cases when perfomance and page weight matters, the best case is try other options: maybe pure CSS? It's possible?
 
-Have a good point at this question. Yes, exists CSS ways to solve this, using flexbox or columns technic, but doesn't work well when you don't know about your data/structure. So we have to use JavaScript. The challenge is create a decent algorithm where no matter the structure: Waterfall will work.
+This question have a good point. Yes, exists CSS ways to solve, using flexbox or columns technic, but doesn't work well when you don't know about your data/structure. So we have to use JavaScript. The challenge is create a decent algorithm where no matter the structure: Waterfall will work.
 
-However, Waterfall Always is consider items with **same width** :)
-
-Grid Example: 
-
-| (w:200px) (w:200px) (w:200px) |
-| (w:200px) (w:200px) (w:200px) |
-| (w:200px) (w:200px) (w:200px) |
-| (w:200px) (w:200px) (w:200px) |
+However; Waterfall always will consider items with **same width** :)
 
 ## How to Use?
 
