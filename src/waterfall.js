@@ -36,11 +36,8 @@ function waterfall(container){
 
     function sort(l){
         l = l.sort(function(a, b){
-            if(bottom(a) === bottom(b)){
-                return x(b) - x(a);
-            }else{
-                return bottom(b) - bottom(a);
-            }
+            var bottom_diff = bottom(b) - bottom(a);
+            return bottom_diff || x(b) - x(a);
         });
     }
 
