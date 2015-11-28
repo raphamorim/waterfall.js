@@ -16,7 +16,7 @@ However; Waterfall always will consider items with **same width** :)
 
 #### Getting
 
-First at all, get Waterfall using [Download Option](https://github.com/raphamorim/waterfall/archive/master.zip) or via bower. 
+First at all, get Waterfall using [Download Option](https://github.com/raphamorim/waterfall.js/archive/master.zip) or via bower.
 
 To get using [Bower](http://bower.io) just run this command
 
