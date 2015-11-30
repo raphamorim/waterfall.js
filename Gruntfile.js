@@ -11,11 +11,11 @@ grunt.initConfig({
 
    watch: {
       dist: {
-         files : ['lib/waterfall.js'],
-	    tasks : ['uglify']
-   	 }
-      } // Watch
-   });
+         files: ['lib/waterfall.js'], 
+	 tasks: ['uglify']
+      }
+   } // Watch
+});
 
 // Tasks
 grunt.loadNpmTasks('grunt-contrib-uglify');
