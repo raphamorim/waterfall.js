@@ -23,5 +23,11 @@
   "bugs": {
     "url": "https://github.com/raphamorim/waterfall.js/issues"
   },
-  "homepage": "https://github.com/raphamorim/waterfall.js#readme"
+  "homepage": "https://github.com/raphamorim/waterfall.js#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "gulp": "^3.9.0"
+  }
 }
