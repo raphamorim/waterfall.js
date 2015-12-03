@@ -75,4 +75,18 @@ function waterfall(container){
     sort(boundary);
     var maxEl = boundary[0];
     container.style.height = px(bottom(maxEl) + margin('Bottom', maxEl));
+
+    // Responds to window resize
+    var containerWidth = width(container);
+    function resize(e) {
+        if(width(container) != containerWidth){
+            e.target.removeEventListener(e.type, arguments.callee);
+            waterfall(container);
+        }
+    }}
+
+    if (window.addEventListener)
+        window.addEventListener('resize', resize);
+    else 
+        document.body.onresize = resize;
 }
