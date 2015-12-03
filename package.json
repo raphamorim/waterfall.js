@@ -1,6 +1,6 @@
 {
   "name": "waterfall.js",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Pinterest Grid in Just 1KB",
   "main": "waterfall.js",
   "scripts": {
