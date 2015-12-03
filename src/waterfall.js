@@ -83,10 +83,11 @@ function waterfall(container){
             e.target.removeEventListener(e.type, arguments.callee);
             waterfall(container);
         }
-    }}
+    }
 
-    if (window.addEventListener)
+    if (window.addEventListener) {
         window.addEventListener('resize', resize);
-    else 
+    } else { 
         document.body.onresize = resize;
+    }
 }
