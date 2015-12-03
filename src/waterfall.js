@@ -78,11 +78,15 @@ function waterfall(container){
 
     // Responds to window resize
     var containerWidth = width(container);
-
-    window.addEventListener('resize', function(e){
+    function resize(e) {
         if(width(container) != containerWidth){
             e.target.removeEventListener(e.type, arguments.callee);
             waterfall(container);
         }
-    });
+    }}
+
+    if (window.addEventListener)
+        window.addEventListener('resize', resize);
+    else 
+        document.body.onresize = resize;
 }
