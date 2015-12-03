@@ -73,7 +73,7 @@ section.topic p {
 .waterfall {
   background-color: #f2f2f2;
   padding: 0;
-  width: 920px;
+  width: 100%;
   height: auto;
   margin: 0 auto;
   visibility: visible;
@@ -85,8 +85,8 @@ section.topic p {
   display: inline-block;
   font-size: 40px;
   color: #FFF;
-  height: 250px;
-  width: 262px;
+  height: 20%;
+  width: 28.5%;
   margin: 1%;
   padding: 10px;
 
@@ -152,4 +152,26 @@ footer {
   padding: 0px;
   margin: 0px;
   margin-top: 100px;
+}
+
+@media (max-width: 920px) {
+  section.header {
+    padding: 0px;
+  }
+
+  section {
+    width: 100%;
+  }
+
+  .waterfall .item {
+    font-size: 30px;
+    width: 30.5%;
+    padding: 0px;
+    padding-top: 20px;
+  }
+
+  table img {
+    width: 60px;
+    height: 60px;
+  }
 }
