@@ -4,7 +4,7 @@
   "description": "Pinterest Grid in Just 1KB",
   "main": "waterfall.js",
   "scripts": {
-    "lint": "eslint src/*.js",
+    "lint": "eslint --fix src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
