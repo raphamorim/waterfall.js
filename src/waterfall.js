@@ -26,7 +26,7 @@ function waterfall (container) {
     return parseFloat(style['margin' + name]) || 0;
   }
   function px (n) { return n + 'px'; }
-  function y (el) { return parseFloat(el.style.top) ; }
+  function y (el) { return parseFloat(el.style.top); }
   function x (el) { return parseFloat(el.style.left); }
   function width (el) { return el.clientWidth; }
   function height (el) { return el.clientHeight; }
