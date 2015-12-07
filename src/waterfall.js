@@ -10,8 +10,9 @@
 */
 
 function waterfall (container) {
-  if (typeof (container) === 'string')
+  if (typeof (container) === 'string') {
     container = document.querySelector(container);
+  }
 
     // Freeze the list of nodes
   var els = [].map.call(container.children, function (el) {
