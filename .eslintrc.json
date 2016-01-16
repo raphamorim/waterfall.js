@@ -1,5 +1,10 @@
 {
     "extends": "standard",
+    "env": {
+        "browser": true,
+        "commonjs": false,
+        "node": false
+    },
     "rules": {
         "semi": [2, "always"]
     },
