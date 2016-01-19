@@ -37,6 +37,13 @@ Add the source before body tag end:
 </body>
 ```
 
+Another option: Waterfall.js is currently available in cdnjs, so you can use from that too.
+
+```
+<script src="//cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js></script>
+</body>
+```
+
 #### Usage
 
 Define your grid structure:
@@ -69,6 +76,12 @@ window.addEventListener('resize', function () {
     waterfall(grid);
 });
 ```
+
+#### Many images to load
+
+In this case we highly recommend you run the waterfall only after the images have been loaded. Because Waterfall.js requires information about height / width of the images.
+
+A quick solution is to use [imgStatus](http://raphamorim.com/imgStatus/) (no dependencies and only 855bytes) to check the images were loaded.
 
 ## Browser Support
 
