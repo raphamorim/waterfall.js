@@ -40,7 +40,7 @@ Add the source before body tag end:
 Another option: Waterfall.js is currently available in cdnjs, so you can use from that too.
 
 ```html
-<script src="//cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js"></script>
 </body>
 ```
 
