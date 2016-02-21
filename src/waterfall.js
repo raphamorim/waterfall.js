@@ -41,11 +41,15 @@ function waterfall(container){
     }
 
 
+    function placeEl(el, top, left){
+        el.style.top = top;
+        el.style.left = left;
+        boundary.push(el);
+    }
+
     // Deal with the first element.
     if(els.length){
-        els[0].style.top = '0px';
-        els[0].style.left = px(margin('Left', els[0]));
-        boundary.push(els[0]);
+        placeEl(els[0], '0px', px(margin('Left', els[0])));
     }
 
     // Deal with the first line.
@@ -54,9 +58,7 @@ function waterfall(container){
         el = els[i],
         thereIsSpace = right(prev) + width(el) <= width(container);
         if(!thereIsSpace) break;
-            el.style.top = prev.style.top;
-        el.style.left = px(right(prev) + margin('Left', el));
-        boundary.push(el);
+        placeEl(el, prev.style.top, px(right(prev) + margin('Left', el)));
     }
 
     // Place following elements at the bottom of the smallest column.
@@ -64,9 +66,7 @@ function waterfall(container){
         sort(boundary);
         var el = els[i],
             minEl = boundary.pop();
-        el.style.top = px(bottom(minEl) + margin('Top', el));
-        el.style.left = px(x(minEl));
-        boundary.push(el);
+        placeEl(el, px(bottom(minEl) + margin('Top', el)), px(x(minEl)));
     }
 
     sort(boundary);
