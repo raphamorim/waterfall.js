@@ -13,14 +13,6 @@ function waterfall(container){
     if(typeof(container) === 'string')
         container = document.querySelector(container);
 
-    container.style.position = 'relative';
-
-    // Freeze the list of nodes
-    var els = [].map.call(container.children, function(el){
-        el.style.position = 'absolute';
-        return el;
-    });
-
     function style(el){ return window.getComputedStyle(el); }
     function margin(name, el){ return parseFloat(style(el)['margin' + name]) || 0; }
 
@@ -55,6 +47,13 @@ function waterfall(container){
             return this.els[0];
         },
     };
+
+    // Freeze the list of nodes
+    var els = [].map.call(container.children, function(el){
+        el.style.position = 'absolute';
+        return el;
+    });
+    container.style.position = 'relative';
 
     // Deal with the first element.
     if(els.length){
