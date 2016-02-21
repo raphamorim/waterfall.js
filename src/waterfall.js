@@ -15,12 +15,11 @@ function waterfall(container){
 
     container.style.position = 'relative';
 
-    var boundary = [],
-        // Freeze the list of nodes
-        els = [].map.call(container.children, function(el){
-            el.style.position = 'absolute';
-            return el;
-        });
+    // Freeze the list of nodes
+    var els = [].map.call(container.children, function(el){
+        el.style.position = 'absolute';
+        return el;
+    });
 
     function style(el){ return window.getComputedStyle(el); }
     function margin(name, el){ return parseFloat(style(el)['margin' + name]) || 0; }
@@ -40,36 +39,44 @@ function waterfall(container){
         });
     }
 
-
-    function placeEl(el, top, left){
-        el.style.top = top;
-        el.style.left = left;
-        boundary.push(el);
-    }
+    var boundary = {
+        els: [],
+        add: function (el, top, left){
+            el.style.top = top;
+            el.style.left = left;
+            this.els.push(el);
+            sort(this.els);
+            this.els = this.els.slice(0, 3);
+        },
+        min: function(){
+            return this.els[this.els.length - 1];
+        },
+        max: function(){
+            return this.els[0];
+        },
+    };
 
     // Deal with the first element.
     if(els.length){
-        placeEl(els[0], '0px', px(margin('Left', els[0])));
+        boundary.add(els[0], '0px', px(margin('Left', els[0])));
     }
 
     // Deal with the first line.
     for(var i = 1; i < els.length; i++){
         var prev = els[i - 1],
-        el = els[i],
+            el = els[i],
         thereIsSpace = right(prev) + width(el) <= width(container);
         if(!thereIsSpace) break;
-        placeEl(el, prev.style.top, px(right(prev) + margin('Left', el)));
+        boundary.add(el, prev.style.top, px(right(prev) + margin('Left', el)));
     }
 
     // Place following elements at the bottom of the smallest column.
     for(; i < els.length; i++){
-        sort(boundary);
-        var el = els[i],
-            minEl = boundary.pop();
-        placeEl(el, px(bottom(minEl) + margin('Top', el)), px(x(minEl)));
+        var minEl = boundary.min(),
+            el = els[i];
+        boundary.add(el, px(bottom(minEl) + margin('Top', el)), px(x(minEl)));
     }
 
-    sort(boundary);
-    var maxEl = boundary[0];
+    var maxEl = boundary.max();
     container.style.height = px(bottom(maxEl) + margin('Bottom', maxEl));
 }
