@@ -13,12 +13,14 @@ function waterfall(container){
     if(typeof(container) === 'string')
         container = document.querySelector(container);
 
-    // Freeze the list of nodes
-    var els = [].map.call(container.children, function(el){
-        el.style.position = 'absolute';
-        return el;
-    });
     container.style.position = 'relative';
+
+    var boundary = [],
+        // Freeze the list of nodes
+        els = [].map.call(container.children, function(el){
+            el.style.position = 'absolute';
+            return el;
+        });
 
     function margin(name, el){
         var style = window.getComputedStyle(el);
@@ -34,15 +36,11 @@ function waterfall(container){
 
     function sort(l){
         l = l.sort(function(a, b){
-            if(bottom(a) === bottom(b)){
-                return x(b) - x(a);
-            }else{
-                return bottom(b) - bottom(a);
-            }
+            var bottom_diff = bottom(b) - bottom(a);
+            return bottom_diff || x(b) - x(a);
         });
     }
 
-    var boundary = [];
 
     // Deal with the first element.
     if(els.length){
