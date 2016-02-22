@@ -22,15 +22,14 @@ function waterfall(container){
             return el;
         });
 
-    function margin(name, el){
-        var style = window.getComputedStyle(el);
-        return parseFloat(style['margin' + name]) || 0;
-    }
+    function style(el){ return window.getComputedStyle(el); }
+    function margin(name, el){ return parseFloat(style(el)['margin' + name]) || 0; }
+
     function px(n){ return n + 'px'; }
     function y(el){ return parseFloat(el.style.top) ; }
     function x(el){ return parseFloat(el.style.left); }
-    function width(el){ return el.clientWidth; }
-    function height(el){ return el.clientHeight; }
+    function width(el){ return parseFloat(style(el).width); }
+    function height(el){ return parseFloat(style(el).height); }
     function bottom(el){ return y(el) + height(el) + margin('Bottom', el); }
     function right(el){ return x(el) + width(el) + margin('Right', el); }
 
