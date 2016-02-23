@@ -65,11 +65,15 @@ function waterfall(container){
         placeEl(el, px(bottom(minEl) + margin('Top', el)), px(x(minEl)));
     }
 
+    function adjustContainer(container, maxEl){
+        container.style.position = 'relative';
+        container.style.height = px(bottom(maxEl) + margin('Bottom', maxEl));
+    }
+
     function thereIsSpace(els, i){
         return right(els[i - 1]) + width(els[i]) <= width(container);
     }
 
-    container.style.position = 'relative';
     var els = container.children;
 
     if(els.length){
@@ -84,6 +88,5 @@ function waterfall(container){
         placeAtTheSmallestColumn(boundary.min(), els[i]);
     }
 
-    var maxEl = boundary.max();
-    container.style.height = px(bottom(maxEl) + margin('Bottom', maxEl));
+    adjustContainer(container, boundary.max());
 }
