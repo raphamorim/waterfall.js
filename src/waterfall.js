@@ -33,9 +33,7 @@ function waterfall(container){
 
     var boundary = {
         els: [],
-        add: function (el, top, left){
-            el.style.top = top;
-            el.style.left = left;
+        add: function (el){
             this.els.push(el);
             sort(this.els);
             this.els = this.els.slice(0, 3);
@@ -48,34 +46,42 @@ function waterfall(container){
         },
     };
 
-    // Freeze the list of nodes
-    var els = [].map.call(container.children, function(el){
+    function placeEl(el, top, left){
         el.style.position = 'absolute';
-        return el;
-    });
+        el.style.top = top;
+        el.style.left = left;
+        boundary.add(el);
+    }
+
+    function placeFirstElement(el){
+        placeEl(el, '0px', px(margin('Left', el)));
+    }
+
+    function placeAtTheFirstLine(prev, el){
+        placeEl(el, prev.style.top, px(right(prev) + margin('Left', el)));
+    }
+
+    function placeAtTheSmallestColumn(minEl, el){
+        placeEl(el, px(bottom(minEl) + margin('Top', el)), px(x(minEl)));
+    }
 
     function thereIsSpace(els, i){
         return right(els[i - 1]) + width(els[i]) <= width(container);
     }
 
     container.style.position = 'relative';
+    var els = container.children;
 
-    // Deal with the first element.
     if(els.length){
-        boundary.add(els[0], '0px', px(margin('Left', els[0])));
+        placeFirstElement(els[0]);
     }
 
     for(var i = 1; i < els.length && thereIsSpace(els, i); i++){
-        var prev = els[i - 1],
-            el = els[i],
-        boundary.add(el, prev.style.top, px(right(prev) + margin('Left', el)));
+        placeAtTheFirstLine(els[i - 1], els[i]);
     }
 
-    // Place following elements at the bottom of the smallest column.
     for(; i < els.length; i++){
-        var minEl = boundary.min(),
-            el = els[i];
-        boundary.add(el, px(bottom(minEl) + margin('Top', el)), px(x(minEl)));
+        placeAtTheSmallestColumn(boundary.min(), els[i]);
     }
 
     var maxEl = boundary.max();
