@@ -53,6 +53,11 @@ function waterfall(container){
         el.style.position = 'absolute';
         return el;
     });
+
+    function thereIsSpace(els, i){
+        return right(els[i - 1]) + width(els[i]) <= width(container);
+    }
+
     container.style.position = 'relative';
 
     // Deal with the first element.
@@ -60,12 +65,9 @@ function waterfall(container){
         boundary.add(els[0], '0px', px(margin('Left', els[0])));
     }
 
-    // Deal with the first line.
-    for(var i = 1; i < els.length; i++){
+    for(var i = 1; i < els.length && thereIsSpace(els, i); i++){
         var prev = els[i - 1],
             el = els[i],
-        thereIsSpace = right(prev) + width(el) <= width(container);
-        if(!thereIsSpace) break;
         boundary.add(el, prev.style.top, px(right(prev) + margin('Left', el)));
     }
 
