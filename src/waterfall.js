@@ -13,15 +13,6 @@ function waterfall(container){
     if(typeof(container) === 'string')
         container = document.querySelector(container);
 
-    container.style.position = 'relative';
-
-    var boundary = [],
-        // Freeze the list of nodes
-        els = [].map.call(container.children, function(el){
-            el.style.position = 'absolute';
-            return el;
-        });
-
     function style(el){ return window.getComputedStyle(el); }
     function margin(name, el){ return parseFloat(style(el)['margin' + name]) || 0; }
 
@@ -40,36 +31,62 @@ function waterfall(container){
         });
     }
 
+    var boundary = {
+        els: [],
+        add: function (el){
+            this.els.push(el);
+            sort(this.els);
+            this.els = this.els.slice(0, 3);
+        },
+        min: function(){
+            return this.els[this.els.length - 1];
+        },
+        max: function(){
+            return this.els[0];
+        },
+    };
 
-    // Deal with the first element.
+    function placeEl(el, top, left){
+        el.style.position = 'absolute';
+        el.style.top = top;
+        el.style.left = left;
+        boundary.add(el);
+    }
+
+    function placeFirstElement(el){
+        placeEl(el, '0px', px(margin('Left', el)));
+    }
+
+    function placeAtTheFirstLine(prev, el){
+        placeEl(el, prev.style.top, px(right(prev) + margin('Left', el)));
+    }
+
+    function placeAtTheSmallestColumn(minEl, el){
+        placeEl(el, px(bottom(minEl) + margin('Top', el)), px(x(minEl)));
+    }
+
+    function adjustContainer(container, maxEl){
+        container.style.position = 'relative';
+        container.style.height = px(bottom(maxEl) + margin('Bottom', maxEl));
+    }
+
+    function thereIsSpace(els, i){
+        return right(els[i - 1]) + width(els[i]) <= width(container);
+    }
+
+    var els = container.children;
+
     if(els.length){
-        els[0].style.top = '0px';
-        els[0].style.left = px(margin('Left', els[0]));
-        boundary.push(els[0]);
+        placeFirstElement(els[0]);
     }
 
-    // Deal with the first line.
-    for(var i = 1; i < els.length; i++){
-        var prev = els[i - 1],
-        el = els[i],
-        thereIsSpace = right(prev) + width(el) <= width(container);
-        if(!thereIsSpace) break;
-            el.style.top = prev.style.top;
-        el.style.left = px(right(prev) + margin('Left', el));
-        boundary.push(el);
+    for(var i = 1; i < els.length && thereIsSpace(els, i); i++){
+        placeAtTheFirstLine(els[i - 1], els[i]);
     }
 
-    // Place following elements at the bottom of the smallest column.
     for(; i < els.length; i++){
-        sort(boundary);
-        var el = els[i],
-            minEl = boundary.pop();
-        el.style.top = px(bottom(minEl) + margin('Top', el));
-        el.style.left = px(x(minEl));
-        boundary.push(el);
+        placeAtTheSmallestColumn(boundary.min(), els[i]);
     }
 
-    sort(boundary);
-    var maxEl = boundary[0];
-    container.style.height = px(bottom(maxEl) + margin('Bottom', maxEl));
+    adjustContainer(container, boundary.max());
 }
