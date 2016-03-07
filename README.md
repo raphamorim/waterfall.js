@@ -1,14 +1,14 @@
 # Waterfall.js
 
-> Tired of use creepy hacks or heavy ways to get a Grid based on Pinterest?
+> Tired of using creepy hacks or heavy ways to get a grid based on Pinterest?
 
-1KB and Works without any dependency \o/
+1KB and works without any dependency \o/
 
 ## The "Why"
 
-Currently the best option today to do this job is Masonry, but it's very heavy and have dependency of jQuery. Please understand: this isn't a problem is most cases, but in cases when perfomance and page weight matters, the best case is try other options: maybe pure CSS? Is it possible?
+Currently the best option today to do this job is Masonry, but it's very heavy and has a jQuery dependency. Please understand: this isn't a problem in most cases, but when perfomance and page weight matters, it's best to try other options: maybe pure CSS? Is it possible?
 
-This question have a good point. Yes, exists CSS ways to solve, using flexbox or columns technic, but doesn't work well when you don't know about your data/structure. So we have to use JavaScript. The challenge is create a decent algorithm where no matter the structure: Waterfall will work.
+This question has a good point. Yes, there are CSS ways to solve this, using flexbox or columns technic, but this doesn't work well when you don't know about your data/structure. So we have to use JavaScript. The challenge is create a decent algorithm where the structure doesn't matter: Waterfall will work.
 
 However; Waterfall always will consider items with **same width** :)
 
@@ -24,20 +24,20 @@ To get using [Bower](http://bower.io) just run this command
 bower install waterfall
 ```
 
-Or get using NPM just run this command
+Or get it using NPM by running this command
 
 ```sh
 npm install waterfall.js
 ```
 
-Add the source before body tag end:
+Add the source before the closing body tag:
 
 ```html
 <script src="waterfall.min.js"></script>
 </body>
 ```
 
-Another option: Waterfall.js is currently available in cdnjs, so you can use from that too.
+Another option: Waterfall.js is currently available in cdnjs, so you can use it from there too.
 
 ```html
 <script src="//cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js"></script>
@@ -56,7 +56,7 @@ Define your grid structure:
 </div>
 ```
 
-Call Waterfall function with your grid as a argument and let the magic happens :)
+Call Waterfall function with your grid as a argument and let the magic happen :)
 
 ```javascript
 
