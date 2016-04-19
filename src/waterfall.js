@@ -90,3 +90,6 @@ function waterfall(container){
 
     adjustContainer(container, boundary.max());
 }
+
+if (typeof window === "object")
+    window.waterfall = waterfall;
