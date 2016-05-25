@@ -9,7 +9,8 @@
    + Documentation: https://github.com/raphamorim/waterfall
 */
 
-function waterfall(container){
+function waterfall(container, smallerColumnLen){  
+  // smallerColumnLen is for the length of Smaller Column compare array config
     if(typeof(container) === 'string')
         container = document.querySelector(container);
 
@@ -27,16 +28,17 @@ function waterfall(container){
     function sort(l){
         l = l.sort(function(a, b){
             var bottom_diff = bottom(b) - bottom(a);
-            return bottom_diff || x(b) - x(a);
+            return bottom_diff  || x(b) - x(a);
         });
     }
-
+    var els = container.children;
     var boundary = {
         els: [],
+        sliceLength: smallerColumnLen,
         add: function (el){
             this.els.push(el);
             sort(this.els);
-            this.els = this.els.slice(0, 3);
+            this.els = this.els.slice(0, this.sliceLength);
         },
         min: function(){
             return this.els[this.els.length - 1];
@@ -74,19 +76,17 @@ function waterfall(container){
         return right(els[i - 1]) + width(els[i]) <= width(container);
     }
 
-    var els = container.children;
 
     if(els.length){
         placeFirstElement(els[0]);
-    }
+      for(var i = 1; i < els.length && thereIsSpace(els, i); i++){
+          placeAtTheFirstLine(els[i - 1], els[i]);
+      }
+        boundary.sliceLength = i;
+      for(; i < els.length; i++){
+          placeAtTheSmallestColumn(boundary.min(), els[i]);
+      }
 
-    for(var i = 1; i < els.length && thereIsSpace(els, i); i++){
-        placeAtTheFirstLine(els[i - 1], els[i]);
     }
-
-    for(; i < els.length; i++){
-        placeAtTheSmallestColumn(boundary.min(), els[i]);
-    }
-
     adjustContainer(container, boundary.max());
 }
