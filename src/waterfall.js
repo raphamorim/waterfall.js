@@ -31,26 +31,24 @@ function waterfall(container){
         });
     }
 
-    var boundary = {
-        els: [],
-        add: function (el){
-            this.els.push(el);
-            sort(this.els);
-            this.els = this.els.slice(0, 3);
-        },
-        min: function(){
-            return this.els[this.els.length - 1];
-        },
-        max: function(){
-            return this.els[0];
-        },
-    };
+    function Boundary(firstRow){
+        var els = firstRow;
+        sort(els);
+
+        this.add = function (el){
+            els.push(el);
+            sort(els);
+            els.pop();
+        };
+
+        this.min = function(){ return els[els.length - 1]; };
+        this.max = function(){ return els[0]; };
+    }
 
     function placeEl(el, top, left){
         el.style.position = 'absolute';
         el.style.top = top;
         el.style.left = left;
-        boundary.add(el);
     }
 
     function placeFirstElement(el){
@@ -84,8 +82,12 @@ function waterfall(container){
         placeAtTheFirstLine(els[i - 1], els[i]);
     }
 
+    var firstRow = [].slice.call(els, 0, i);
+    var boundary = new Boundary(firstRow);
+
     for(; i < els.length; i++){
         placeAtTheSmallestColumn(boundary.min(), els[i]);
+        boundary.add(els[i]);
     }
 
     adjustContainer(container, boundary.max());
