@@ -13,6 +13,9 @@ function waterfall(container){
     if(typeof(container) === 'string')
         container = document.querySelector(container);
 
+    var els = container.children;
+    if(!els.length) return;
+
     function style(el){ return window.getComputedStyle(el); }
     function margin(name, el){ return parseFloat(style(el)['margin' + name]) || 0; }
 
@@ -74,11 +77,7 @@ function waterfall(container){
         return right(els[i - 1]) + width(els[i]) <= width(container);
     }
 
-    var els = container.children;
-
-    if(els.length){
-        placeFirstElement(els[0]);
-    }
+    placeFirstElement(els[0]);
 
     for(var i = 1; i < els.length && thereIsSpace(els, i); i++){
         placeAtTheFirstLine(els[i - 1], els[i]);
