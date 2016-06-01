@@ -16,7 +16,7 @@ function waterfall(container){
     function style(el){ return window.getComputedStyle(el); }
     function margin(name, el){ return parseFloat(style(el)['margin' + name]) || 0; }
 
-    function px(n){ return n + 'px'; }
+    function px(n){ return parseFloat(n) + 'px'; }
     function y(el){ return parseFloat(el.style.top) ; }
     function x(el){ return parseFloat(el.style.left); }
     function width(el){ return parseFloat(style(el).width); }
@@ -47,20 +47,20 @@ function waterfall(container){
 
     function placeEl(el, top, left){
         el.style.position = 'absolute';
-        el.style.top = top;
-        el.style.left = left;
+        el.style.top = px(top);
+        el.style.left = px(left);
     }
 
     function placeFirstElement(el){
-        placeEl(el, '0px', px(margin('Left', el)));
+        placeEl(el, 0, margin('Left', el));
     }
 
     function placeAtTheFirstLine(prev, el){
-        placeEl(el, prev.style.top, px(right(prev) + margin('Left', el)));
+        placeEl(el, prev.style.top, right(prev) + margin('Left', el));
     }
 
     function placeAtTheSmallestColumn(minEl, el){
-        placeEl(el, px(bottom(minEl) + margin('Top', el)), px(x(minEl)));
+        placeEl(el, bottom(minEl) + margin('Top', el), x(minEl));
     }
 
     function adjustContainer(container, maxEl){
