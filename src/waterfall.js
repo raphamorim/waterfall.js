@@ -31,33 +31,13 @@
         return parseFloat(style(el)['margin' + name]) || 0;
     }
 
-    function px(n) {
-        return n + 'px';
-    }
-
-    function y(el) {
-        return parseFloat(el.style.top);
-    }
-
-    function x(el) {
-        return parseFloat(el.style.left);
-    }
-
-    function width(el) {
-        return parseFloat(style(el).width);
-    }
-
-    function height(el) {
-        return parseFloat(style(el).height);
-    }
-
-    function bottom(el) {
-        return y(el) + height(el) + margin('Bottom', el);
-    }
-
-    function right(el) {
-        return x(el) + width(el) + margin('Right', el);
-    }
+    function px(n){ return parseFloat(n) + 'px'; }
+    function y(el){ return parseFloat(el.style.top) ; }
+    function x(el){ return parseFloat(el.style.left); }
+    function width(el){ return parseFloat(style(el).width); }
+    function height(el){ return parseFloat(style(el).height); }
+    function bottom(el){ return y(el) + height(el) + margin('Bottom', el); }
+    function right(el){ return x(el) + width(el) + margin('Right', el); }
 
     function sort(l) {
         l = l.sort(function(a, b) {
@@ -82,20 +62,20 @@
 
     function placeEl(el, top, left) {
         el.style.position = 'absolute';
-        el.style.top = top;
-        el.style.left = left;
+        el.style.top = px(top);
+        el.style.left = px(left);
     }
 
-    function placeFirstElement(el) {
-        placeEl(el, '0px', px(margin('Left', el)));
+    function placeFirstElement(el){
+        placeEl(el, 0, margin('Left', el));
     }
 
-    function placeAtTheFirstLine(prev, el) {
-        placeEl(el, prev.style.top, px(right(prev) + margin('Left', el)));
+    function placeAtTheFirstLine(prev, el){
+        placeEl(el, prev.style.top, right(prev) + margin('Left', el));
     }
 
-    function placeAtTheSmallestColumn(minEl, el) {
-        placeEl(el, px(bottom(minEl) + margin('Top', el)), px(x(minEl)));
+    function placeAtTheSmallestColumn(minEl, el){
+        placeEl(el, bottom(minEl) + margin('Top', el), x(minEl));
     }
 
     function adjustContainer(container, maxEl) {
