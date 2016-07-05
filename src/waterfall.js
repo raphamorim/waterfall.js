@@ -3,7 +3,7 @@
    Waterfall.js
    --------------------------------
    + https://github.com/raphamorim/waterfall
-   + version 1.0.0
+   + version 1.0.3
    + Copyright 2015 Raphael Amorim
    + Licensed under the MIT license
    + Documentation: https://github.com/raphamorim/waterfall
