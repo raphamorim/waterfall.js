@@ -16,7 +16,7 @@ function waterfall(container){
     function style(el){ return window.getComputedStyle(el); }
     function margin(name, el){ return parseFloat(style(el)['margin' + name]) || 0; }
 
-    function px(n){ return n + 'px'; }
+    function px(n){ return parseFloat(n) + 'px'; }
     function y(el){ return parseFloat(el.style.top) ; }
     function x(el){ return parseFloat(el.style.left); }
     function width(el){ return parseFloat(style(el).width); }
@@ -31,38 +31,36 @@ function waterfall(container){
         });
     }
 
-    var boundary = {
-        els: [],
-        add: function (el){
-            this.els.push(el);
-            sort(this.els);
-            this.els = this.els.slice(0, 3);
-        },
-        min: function(){
-            return this.els[this.els.length - 1];
-        },
-        max: function(){
-            return this.els[0];
-        },
-    };
+    function Boundary(firstRow){
+        var els = firstRow;
+        sort(els);
+
+        this.add = function (el){
+            els.push(el);
+            sort(els);
+            els.pop();
+        };
+
+        this.min = function(){ return els[els.length - 1]; };
+        this.max = function(){ return els[0]; };
+    }
 
     function placeEl(el, top, left){
         el.style.position = 'absolute';
-        el.style.top = top;
-        el.style.left = left;
-        boundary.add(el);
+        el.style.top = px(top);
+        el.style.left = px(left);
     }
 
     function placeFirstElement(el){
-        placeEl(el, '0px', px(margin('Left', el)));
+        placeEl(el, 0, margin('Left', el));
     }
 
     function placeAtTheFirstLine(prev, el){
-        placeEl(el, prev.style.top, px(right(prev) + margin('Left', el)));
+        placeEl(el, prev.style.top, right(prev) + margin('Left', el));
     }
 
     function placeAtTheSmallestColumn(minEl, el){
-        placeEl(el, px(bottom(minEl) + margin('Top', el)), px(x(minEl)));
+        placeEl(el, bottom(minEl) + margin('Top', el), x(minEl));
     }
 
     function adjustContainer(container, maxEl){
@@ -84,8 +82,12 @@ function waterfall(container){
         placeAtTheFirstLine(els[i - 1], els[i]);
     }
 
+    var firstRow = [].slice.call(els, 0, i);
+    var boundary = new Boundary(firstRow);
+
     for(; i < els.length; i++){
         placeAtTheSmallestColumn(boundary.min(), els[i]);
+        boundary.add(els[i]);
     }
 
     adjustContainer(container, boundary.max());
