@@ -2,7 +2,7 @@
 
 > Tired of using creepy hacks or heavy ways to get a grid based on Pinterest?
 
-1KB and works without any dependency \o/
+1KB and works without any dependency, also [UMD support available too](https://github.com/umdjs/umd) \o/
 
 ## The "Why"
 
