@@ -81,7 +81,7 @@ window.addEventListener('resize', function () {
 
 In this case we highly recommend you run the waterfall only after the images have been loaded. Because Waterfall.js requires information about height / width of the images.
 
-A quick solution is to use [imgStatus](http://raphamorim.com/imgStatus/) (no dependencies and only 855bytes) to check the images were loaded.
+A quick solution is to use [imgStatus](http://raphamorim.io/imgStatus/) (no dependencies and only 855bytes) to check the images were loaded.
 
 ## Browser Support
 
