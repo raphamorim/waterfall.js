@@ -1,5 +1,7 @@
 # Waterfall.js
 
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+
 > Tired of using creepy hacks or heavy ways to get a grid based on Pinterest?
 
 1KB and works without any dependency, also [UMD support available too](https://github.com/umdjs/umd) \o/
