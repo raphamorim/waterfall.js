@@ -4,7 +4,7 @@
   "description": "Pinterest Grid in Just 1KB",
   "main": "waterfall.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run lint",
     "lint": "standard src/**/*.js"
   },
   "keywords": [
@@ -26,11 +26,11 @@
   },
   "homepage": "https://github.com/raphamorim/waterfall.js#readme",
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-uglify": "^0.11.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "gulp": "^3.9.0",
-    "standard": "^8.6.0"
+    "grunt": "0.4.5",
+    "grunt-contrib-uglify": "0.11.0",
+    "grunt-contrib-watch": "0.6.1",
+    "gulp": "3.9.0",
+    "standard": "8.6.0"
   },
   "standard": {
     "globals": ["define"]
