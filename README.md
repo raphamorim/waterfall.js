@@ -1,6 +1,8 @@
-# Waterfall.js
-
+[![Build Status](https://travis-ci.org/raphamorim/waterfall.js.svg?branch=master)](https://travis-ci.org/raphamorim/waterfall.js)
+[![NPM Version](https://img.shields.io/npm/v/express.svg?style=flat)](https://www.npmjs.com/package/waterfall.js)
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+
+# Waterfall.js
 
 > Tired of using creepy hacks or heavy ways to get a grid based on Pinterest?
 
@@ -32,7 +34,13 @@ Or get it using NPM by running this command
 npm install waterfall.js
 ```
 
-Add the source before the closing body tag:
+You can import
+
+```js
+import waterfall from 'waterfall'
+```
+
+Or add the source before the closing body tag:
 
 ```html
 <script src="waterfall.min.js"></script>
