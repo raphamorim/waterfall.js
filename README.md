@@ -37,7 +37,7 @@ npm install waterfall.js
 You can import
 
 ```js
-import waterfall from 'waterfall'
+import waterfall from 'waterfall.js/src/waterfall'
 ```
 
 Or add the source before the closing body tag:
