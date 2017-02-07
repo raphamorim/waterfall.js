@@ -4,8 +4,15 @@
   "description": "Pinterest Grid in Just 1KB",
   "main": "waterfall.js",
   "scripts": {
-    "test": "npm run lint",
+    "test": "tape -r babel-register test/**/*.js",
+    "test:watch": "tape-watch -r babel-register test/**/*.js",
     "lint": "standard src/**/*.js"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "sourceMaps": "inline"
   },
   "keywords": [
     "waterfall",
