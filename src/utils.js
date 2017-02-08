@@ -52,7 +52,6 @@ export const placeAtTheSmallestColumn = (minElement, element) => {
 }
 
 export const adjustContainer = (container, maxElement) => {
-  container.style.position = 'relative'
   container.style.height = convertPx(
     bottom(maxElement) + getMargin('Bottom', maxElement)
   )
@@ -60,16 +59,3 @@ export const adjustContainer = (container, maxElement) => {
 
 export const thereIsSpace = (container, elements, i) =>
   right(elements[i - 1]) + getWidth(elements[i]) <= getWidth(container)
-
-export function Boundary (firstRow) {
-  var els = firstRow.sort(sortElements)
-
-  this.add = function (el) {
-    els.push(el)
-    els = els.sort(sortElements)
-    els.pop()
-  }
-
-  this.min = function () { return els[els.length - 1] }
-  this.max = function () { return els[0] }
-}

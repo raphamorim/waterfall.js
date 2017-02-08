@@ -51,7 +51,6 @@ var placeAtTheSmallestColumn = function (minElement, element) {
 };
 
 var adjustContainer = function (container, maxElement) {
-  container.style.position = 'relative';
   container.style.height = convertPx(
     bottom(maxElement) + getMargin('Bottom', maxElement)
   );
@@ -59,43 +58,39 @@ var adjustContainer = function (container, maxElement) {
 
 var thereIsSpace = function (container, elements, i) { return right(elements[i - 1]) + getWidth(elements[i]) <= getWidth(container); };
 
-function Boundary (firstRow) {
-  var els = firstRow.sort(sortElements);
-
-  this.add = function (el) {
-    els.push(el);
-    els = els.sort(sortElements);
-    els.pop();
-  };
-
-  this.min = function () { return els[els.length - 1] };
-  this.max = function () { return els[0] };
-}
-
 var waterfall = function (container) {
   if (typeof (container) === 'string') {
     container = document.querySelector(container);
   }
 
+  if (!container.children) {
+    return false
+  }
+
   var els = container.children;
+
+  container.style.position = 'relative';
+
+  var boundary = [];
 
   if (els.length) {
     placeFirstElement(els[0]);
+    boundary.push(els[0]);
   }
 
   for (var i = 1; i < els.length && thereIsSpace(container, els, i); i++) {
     placeAtTheFirstLine(els[i - 1], els[i]);
+    boundary.push(els[i]);
   }
-
-  var firstRow = [].slice.call(els, 0, i);
-  var boundary = new Boundary(firstRow);
 
   for (; i < els.length; i++) {
-    placeAtTheSmallestColumn(boundary.min(), els[i]);
-    boundary.add(els[i]);
+    boundary.sort(sortElements);
+    placeAtTheSmallestColumn(boundary.pop(), els[i]);
+    boundary.push(els[i]);
   }
 
-  adjustContainer(container, boundary.max());
+  boundary.sort(sortElements);
+  adjustContainer(container, boundary[0]);
 };
 
 module.exports = waterfall;
