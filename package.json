@@ -6,7 +6,7 @@
   "scripts": {
     "test": "tape -r babel-register test/**/*.js",
     "test:watch": "tape-watch -r babel-register test/**/*.js",
-    "lint": "standard src/**/*.js"
+    "lint": "standard src/**/*.js test/**/*.js"
   },
   "babel": {
     "presets": [
