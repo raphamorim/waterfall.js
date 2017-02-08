@@ -6,9 +6,9 @@ export const getMargin = (position, element) => defaultZero(
   parseFloat(getStyles(element)['margin' + position])
 )
 
-export const getWidth = element => parseFloat(defaultZero(getStyles(element).width))
+export const getWidth = element => element.clientWidth
 
-export const getHeight = element => parseFloat(defaultZero(getStyles(element).height))
+export const getHeight = element => element.clientHeight
 
 export const convertPx = num => parseFloat(num) + 'px'
 

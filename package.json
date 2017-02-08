@@ -4,6 +4,8 @@
   "description": "Pinterest Grid in Just 1KB",
   "main": "waterfall.js",
   "scripts": {
+    "build": "rollup -c && npm run uglify",
+    "uglify": "uglifyjs dist/waterfall.umd.js -cm -o dist/waterfall.umd.min.js",
     "test": "tape -r babel-register test/**/*.js",
     "test:watch": "tape-watch -r babel-register test/**/*.js",
     "lint": "standard src/**/*.js test/**/*.js"
@@ -41,9 +43,12 @@
     "grunt-contrib-uglify": "0.11.0",
     "grunt-contrib-watch": "0.6.1",
     "gulp": "3.9.0",
+    "rollup": "^0.41.4",
+    "rollup-plugin-buble": "^0.15.0",
     "standard": "8.6.0",
     "tape": "^4.6.3",
-    "tape-watch": "^2.2.4"
+    "tape-watch": "^2.2.4",
+    "uglify-js": "^2.7.5"
   },
   "standard": {
     "globals": [
