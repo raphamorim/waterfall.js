@@ -37,7 +37,7 @@ npm install waterfall.js
 You can import
 
 ```js
-import waterfall from 'waterfall.js/src/waterfall'
+import waterfall from 'waterfall.js'
 ```
 
 Or add the source before the closing body tag:
@@ -51,6 +51,12 @@ Another option: Waterfall.js is currently available in cdnjs, so you can use it 
 
 ```html
 <script src="//cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js"></script>
+</body>
+```
+
+Another option: Waterfall.js is also available in unpkg, so you can use it from there too.
+```html
+<script src="https://unpkg.com/waterfall.js/dist/waterfall.umd.min.js"></script>
 </body>
 ```
 
