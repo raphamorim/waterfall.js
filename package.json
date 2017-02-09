@@ -7,13 +7,18 @@
   "scripts": {
     "precommit": "npm run lint -- --fix && npm test && npm run build",
     "prepush": "npm run precommit",
-    "build": "rollup -c && npm run uglify",
+    "build": "npm run rollup && npm run uglify",
+    "build:watch": "run-p -r rollup:watch uglify:watch",
     "uglify": "uglifyjs dist/waterfall.umd.js -cm -o dist/waterfall.umd.min.js",
+    "uglify:watch": "chokidar dist/waterfall.umd.js -c \"npm run uglify\"",
     "karma": "karma start karma.config.js",
+    "rollup": "rollup -c",
+    "rollup:watch": "npm run rollup -- -w",
     "test": "npm run karma -- --no-auto-watch",
     "test:watch": "npm run karma -- --no-single-run",
     "lint": "standard src/**/*.js test/**/*.js",
-    "test:visual": "browser-sync start -s test/visual --files \"dist/waterfall.umd.js\" \"test/visual/**/*\""
+    "test:visual": "browser-sync start -s \"test/visual\" -s \"dist\" --files \"dist/waterfall.umd.js\" \"test/visual/**/*\"",
+    "start": "run-p -r build:watch test:visual test:watch"
   },
   "babel": {
     "env": {
@@ -52,6 +57,7 @@
     "babelify": "^7.3.0",
     "browser-sync": "^2.18.7",
     "browserify": "^14.0.0",
+    "chokidar-cli": "^1.2.0",
     "husky": "^0.13.1",
     "karma": "^1.4.1",
     "karma-browserify": "^5.1.1",
@@ -61,8 +67,10 @@
     "karma-mocha-reporter": "^2.2.2",
     "karma-phantomjs-launcher": "^1.0.2",
     "mocha": "^3.2.0",
+    "npm-run-all": "^4.0.1",
     "rollup": "^0.41.4",
     "rollup-plugin-buble": "^0.15.0",
+    "rollup-watch": "^3.2.2",
     "standard": "8.6.0",
     "uglify-js": "^2.7.5",
     "watchify": "^3.9.0"
