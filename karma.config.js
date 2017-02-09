@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'test'
+
 module.exports = function(config) {
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -29,7 +31,19 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'coverage'],
+    coverageReporter: {
+      reporters: [
+        {
+          type: 'text-summary'
+        },
+        {
+          type : 'html',
+          dir : 'coverage/'
+        }
+      ]
+    },
+
 
     // web server port
     port: 9876,

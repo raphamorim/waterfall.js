@@ -50,6 +50,7 @@ describe('waterfall main function', () => {
     it('should have position relative', () => {
       assert.strictEqual(actualStyle.position, 'relative')
     })
+
     it('should have the proper height', () => {
       assert.strictEqual(actualStyle.height, '175px')
     })
@@ -85,7 +86,6 @@ describe('waterfall main function', () => {
     it('should have the proper left', () => {
       assert.strictEqual(actualStyle.left, '100px')
     })
-
   })
 
   describe('third element', () => {
@@ -102,7 +102,6 @@ describe('waterfall main function', () => {
     it('should have the proper left', () => {
       assert.strictEqual(actualStyle.left, '210px')
     })
-
   })
 
   describe('fourth element', () => {
@@ -118,7 +117,6 @@ describe('waterfall main function', () => {
     it('should have the proper left', () => {
       assert.strictEqual(actualStyle.left, '10px')
     })
-
   })
 
   describe('fifth element', () => {
@@ -135,7 +133,6 @@ describe('waterfall main function', () => {
     it('should have the proper left', () => {
       assert.strictEqual(actualStyle.left, '210px')
     })
-
   })
 
   describe('sixth element', () => {
@@ -152,6 +149,5 @@ describe('waterfall main function', () => {
     it('should have the proper left', () => {
       assert.strictEqual(actualStyle.left, '100px')
     })
-
   })
 })
