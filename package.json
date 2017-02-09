@@ -12,7 +12,8 @@
     "karma": "karma start karma.config.js",
     "test": "npm run karma -- --no-auto-watch",
     "test:watch": "npm run karma -- --no-single-run",
-    "lint": "standard src/**/*.js test/**/*.js"
+    "lint": "standard src/**/*.js test/**/*.js",
+    "test:visual": "browser-sync start -s test/visual --files \"dist/waterfall.umd.js\" \"test/visual/**/*\""
   },
   "babel": {
     "env": {
@@ -49,6 +50,7 @@
     "babel-plugin-istanbul": "^4.0.0",
     "babel-preset-es2015": "^6.22.0",
     "babelify": "^7.3.0",
+    "browser-sync": "^2.18.7",
     "browserify": "^14.0.0",
     "husky": "^0.13.1",
     "karma": "^1.4.1",
