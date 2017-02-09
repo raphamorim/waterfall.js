@@ -29,8 +29,12 @@
     </section>
     <script src="../../dist/waterfall.umd.js"></script>
     <script>
-      var grid = document.querySelector('.waterfall');
-      waterfall(grid);
+      var grid = document.querySelector('.waterfall')
+      waterfall(grid)
+
+      window.addEventListener('resize', () => {
+        waterfall(grid)
+      })
     </script>
   </body>
 </html>
