@@ -12,7 +12,7 @@ export default container => {
     container = document.querySelector(container)
   }
 
-  if (!container.children) {
+  if (!container.children.length) {
     return false
   }
 
@@ -22,10 +22,8 @@ export default container => {
 
   let boundary = []
 
-  if (els.length) {
-    placeFirstElement(els[0])
-    boundary.push(els[0])
-  }
+  placeFirstElement(els[0])
+  boundary.push(els[0])
 
   for (var i = 1; i < els.length && thereIsSpace(container, els, i); i++) {
     placeAtTheFirstLine(els[i - 1], els[i])
