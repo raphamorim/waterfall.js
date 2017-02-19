@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Waterfall.js</title>
+    <link rel="stylesheet" href="app.css">
+  </head>
+  <body>
+    <section class="demo">
+      <div class="waterfall">
+        <div class="item">1</div>
+        <div style="height: 200px;" class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+        <div class="item">10</div>
+        <div class="item">11</div>
+        <div class="item">12</div>
+        <div class="item">13</div>
+        <div class="item">14</div>
+        <div class="item">15</div>
+      </div>
+    </section>
+    <script src="./waterfall.umd.js"></script>
+    <script>
+      var grid = document.querySelector('.waterfall')
+      waterfall(grid)
+
+      window.addEventListener('resize', () => {
+        waterfall(grid)
+      })
+    </script>
+  </body>
+</html>

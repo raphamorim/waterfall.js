@@ -6,7 +6,7 @@
     "Raphael Amorim <rapha850@gmail.com>"
   ],
   "description": "Pinterest Grid in Just 1KB",
-  "main": "waterfall.js",
+  "main": "dist/waterfall.umd.js",
   "keywords": [
     "waterfall",
     "pinterest",
