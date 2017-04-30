@@ -20,43 +20,33 @@
   if (typeof (container) === 'string') {
     container = document.querySelector(container)
   }
-
   function style (el) {
     return window.getComputedStyle(el)
   }
-
   function margin (name, el) {
     return parseFloat(style(el)[`margin${name}`]) || 0
   }
-
   function px (n) {
     return `${parseFloat(n)}px`
   }
-
   function y (el) {
     return parseFloat(el.style.top)
   }
-
   function x (el) {
     return parseFloat(el.style.left)
   }
-
   function width (el) {
     return parseFloat(style(el).width)
   }
-
   function height (el) {
     return parseFloat(style(el).height)
   }
-
   function bottom (el) {
     return y(el) + height(el) + margin('Bottom', el)
   }
-
   function right (el) {
     return x(el) + width(el) + margin('Right', el)
   }
-
   function sort (l) {
     l = l.sort((a, b) => {
       const bottomDiff = bottom(b) - bottom(a)
@@ -83,34 +73,27 @@
     el.style.top = px(top)
     el.style.left = px(left)
   }
-
   function placeFirstElement (el) {
     placeEl(el, 0, margin('Left', el))
   }
-
   function placeAtTheFirstLine (prev, el) {
     placeEl(el, prev.style.top, right(prev) + margin('Left', el))
   }
-
   function placeAtTheSmallestColumn (minEl, el) {
     placeEl(el, bottom(minEl) + margin('Top', el), x(minEl))
   }
-
   function adjustContainer (container, maxEl) {
     container.style.position = 'relative'
     container.style.height = px(bottom(maxEl) + margin('Bottom', maxEl))
   }
-
   function thereIsSpace (els, i) {
     return right(els[i - 1]) + width(els[i]) <= width(container)
   }
-
   const els = container.children
 
   if (els.length) {
     placeFirstElement(els[0])
   }
-
   for (var i = 1; i < els.length && thereIsSpace(els, i); i++) {
     placeAtTheFirstLine(els[i - 1], els[i])
   }
