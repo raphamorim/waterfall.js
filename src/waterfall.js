@@ -8,7 +8,6 @@
    + Licensed under the MIT license
    + Documentation: https://github.com/raphamorim/waterfall
 */
-
 (((root, factory) => {
   if (typeof define === 'function' && define.amd) {
     define('waterfall', () => factory)
@@ -30,23 +29,43 @@
     return parseFloat(style(el)[`margin${name}`]) || 0
   }
 
-  function px (n) { return `${parseFloat(n)}px` }
-  function y (el) { return parseFloat(el.style.top) }
-  function x (el) { return parseFloat(el.style.left) }
-  function width (el) { return parseFloat(style(el).width) }
-  function height (el) { return parseFloat(style(el).height) }
-  function bottom (el) { return y(el) + height(el) + margin('Bottom', el) }
-  function right (el) { return x(el) + width(el) + margin('Right', el) }
+  function px (n) {
+    return `${parseFloat(n)}px`
+  }
+
+  function y (el) {
+    return parseFloat(el.style.top)
+  }
+
+  function x (el) {
+    return parseFloat(el.style.left)
+  }
+
+  function width (el) {
+    return parseFloat(style(el).width)
+  }
+
+  function height (el) {
+    return parseFloat(style(el).height)
+  }
+
+  function bottom (el) {
+    return y(el) + height(el) + margin('Bottom', el)
+  }
+
+  function right (el) {
+    return x(el) + width(el) + margin('Right', el)
+  }
 
   function sort (l) {
     l = l.sort((a, b) => {
-      const bottomDiff = bottom(b) - bottom(a);
+      const bottomDiff = bottom(b) - bottom(a)
       return bottomDiff || x(b) - x(a)
     })
   }
 
   function Boundary (firstRow) {
-    const els = firstRow;
+    const els = firstRow
     sort(els)
 
     this.add = el => {
@@ -86,7 +105,7 @@
     return right(els[i - 1]) + width(els[i]) <= width(container)
   }
 
-  const els = container.children;
+  const els = container.children
 
   if (els.length) {
     placeFirstElement(els[0])
@@ -96,13 +115,13 @@
     placeAtTheFirstLine(els[i - 1], els[i])
   }
 
-  const firstRow = [].slice.call(els, 0, i);
-  const boundary = new Boundary(firstRow);
+  const firstRow = [].slice.call(els, 0, i)
+  const boundary = new Boundary(firstRow)
 
   for (; i < els.length; i++) {
     placeAtTheSmallestColumn(boundary.min(), els[i])
     boundary.add(els[i])
   }
 
-  adjustContainer(container, boundary.max())
+  adjustContainer(container, boundary[0])
 }))
