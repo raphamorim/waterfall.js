@@ -9,102 +9,120 @@
    + Documentation: https://github.com/raphamorim/waterfall
 */
 
-(function (root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define('waterfall', function () {
-      return factory
-    })
-  } else if (typeof module === 'object' && module.exports) {
-    module.exports = factory
-  } else {
-    root.waterfall = factory
-  }
-}(this, function waterfall (container) {
-  if (typeof (container) === 'string') {
-    container = document.querySelector(container)
-  }
-
-  function style (el) {
-    return window.getComputedStyle(el)
-  }
-
-  function margin (name, el) {
-    return parseFloat(style(el)['margin' + name]) || 0
-  }
-
-  function px (n) { return parseFloat(n) + 'px' }
-  function y (el) { return parseFloat(el.style.top) }
-  function x (el) { return parseFloat(el.style.left) }
-  function width (el) { return parseFloat(style(el).width) }
-  function height (el) { return parseFloat(style(el).height) }
-  function bottom (el) { return y(el) + height(el) + margin('Bottom', el) }
-  function right (el) { return x(el) + width(el) + margin('Right', el) }
-
-  function sort (l) {
-    l = l.sort(function (a, b) {
-      var bottomDiff = bottom(b) - bottom(a)
-      return bottomDiff || x(b) - x(a)
-    })
-  }
-
-  function Boundary (firstRow) {
-    var els = firstRow
-    sort(els)
-
-    this.add = function (el) {
-      els.push(el)
-      sort(els)
-      els.pop()
+(((root, factory) => {
+    if (typeof define === 'function' && define.amd) {
+        define('waterfall', () => factory)
+    } else if (typeof module === 'object' && module.exports) {
+        module.exports = factory
+    } else {
+        root.waterfall = factory
+    }
+})(this, function waterfall(container) {
+    if (typeof(container) === 'string') {
+        container = document.querySelector(container)
     }
 
-    this.min = function () { return els[els.length - 1] }
-    this.max = function () { return els[0] }
-  }
+    function style(el) {
+        return window.getComputedStyle(el)
+    }
 
-  function placeEl (el, top, left) {
-    el.style.position = 'absolute'
-    el.style.top = px(top)
-    el.style.left = px(left)
-  }
+    function margin(name, el) {
+        return parseFloat(style(el)[`margin${name}`]) || 0
+    }
 
-  function placeFirstElement (el) {
-    placeEl(el, 0, margin('Left', el))
-  }
+    function px(n) {
+        return `${parseFloat(n)}px`
+    }
 
-  function placeAtTheFirstLine (prev, el) {
-    placeEl(el, prev.style.top, right(prev) + margin('Left', el))
-  }
+    function y(el) {
+        return parseFloat(el.style.top)
+    }
 
-  function placeAtTheSmallestColumn (minEl, el) {
-    placeEl(el, bottom(minEl) + margin('Top', el), x(minEl))
-  }
+    function x(el) {
+        return parseFloat(el.style.left)
+    }
 
-  function adjustContainer (container, maxEl) {
-    container.style.position = 'relative'
-    container.style.height = px(bottom(maxEl) + margin('Bottom', maxEl))
-  }
+    function width(el) {
+        return parseFloat(style(el).width)
+    }
 
-  function thereIsSpace (els, i) {
-    return right(els[i - 1]) + width(els[i]) <= width(container)
-  }
+    function height(el) {
+        return parseFloat(style(el).height)
+    }
 
-  var els = container.children
+    function bottom(el) {
+        return y(el) + height(el) + margin('Bottom', el)
+    }
 
-  if (els.length) {
-    placeFirstElement(els[0])
-  }
+    function right(el) {
+        return x(el) + width(el) + margin('Right', el)
+    }
 
-  for (var i = 1; i < els.length && thereIsSpace(els, i); i++) {
-    placeAtTheFirstLine(els[i - 1], els[i])
-  }
+    function sort(l) {
+        l = l.sort((a, b) => {
+            const bottomDiff = bottom(b) - bottom(a);
+            return bottomDiff || x(b) - x(a)
+        })
+    }
 
-  var firstRow = [].slice.call(els, 0, i)
-  var boundary = new Boundary(firstRow)
+    function Boundary(firstRow) {
+        const els = firstRow;
+        sort(els)
 
-  for (; i < els.length; i++) {
-    placeAtTheSmallestColumn(boundary.min(), els[i])
-    boundary.add(els[i])
-  }
+        this.add = el => {
+            els.push(el)
+            sort(els)
+            els.pop()
+        }
 
-  adjustContainer(container, boundary.max())
+        this.min = () => els[els.length - 1]
+        this.max = () => els[0]
+    }
+
+    function placeEl(el, top, left) {
+        el.style.position = 'absolute'
+        el.style.top = px(top)
+        el.style.left = px(left)
+    }
+
+    function placeFirstElement(el) {
+        placeEl(el, 0, margin('Left', el))
+    }
+
+    function placeAtTheFirstLine(prev, el) {
+        placeEl(el, prev.style.top, right(prev) + margin('Left', el))
+    }
+
+    function placeAtTheSmallestColumn(minEl, el) {
+        placeEl(el, bottom(minEl) + margin('Top', el), x(minEl))
+    }
+
+    function adjustContainer(container, maxEl) {
+        container.style.position = 'relative'
+        container.style.height = px(bottom(maxEl) + margin('Bottom', maxEl))
+    }
+
+    function thereIsSpace(els, i) {
+        return right(els[i - 1]) + width(els[i]) <= width(container)
+    }
+
+    const els = container.children;
+
+    if (els.length) {
+        placeFirstElement(els[0])
+    }
+
+    for (var i = 1; i < els.length && thereIsSpace(els, i); i++) {
+        placeAtTheFirstLine(els[i - 1], els[i])
+    }
+
+    const firstRow = [].slice.call(els, 0, i);
+    const boundary = new Boundary(firstRow);
+
+    for (; i < els.length; i++) {
+        placeAtTheSmallestColumn(boundary.min(), els[i])
+        boundary.add(els[i])
+    }
+
+    adjustContainer(container, boundary.max())
 }))
