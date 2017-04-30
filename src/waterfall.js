@@ -9,17 +9,15 @@
    + Documentation: https://github.com/raphamorim/waterfall
 */
 
-(function (root, factory) {
+(((root, factory) => {
   if (typeof define === 'function' && define.amd) {
-    define('waterfall', function () {
-      return factory
-    })
+    define('waterfall', () => factory)
   } else if (typeof module === 'object' && module.exports) {
     module.exports = factory
   } else {
     root.waterfall = factory
   }
-}(this, function waterfall (container) {
+})(this, function waterfall (container) {
   if (typeof (container) === 'string') {
     container = document.querySelector(container)
   }
@@ -29,10 +27,10 @@
   }
 
   function margin (name, el) {
-    return parseFloat(style(el)['margin' + name]) || 0
+    return parseFloat(style(el)[`margin${name}`]) || 0
   }
 
-  function px (n) { return parseFloat(n) + 'px' }
+  function px (n) { return `${parseFloat(n)}px` }
   function y (el) { return parseFloat(el.style.top) }
   function x (el) { return parseFloat(el.style.left) }
   function width (el) { return parseFloat(style(el).width) }
@@ -41,24 +39,24 @@
   function right (el) { return x(el) + width(el) + margin('Right', el) }
 
   function sort (l) {
-    l = l.sort(function (a, b) {
-      var bottomDiff = bottom(b) - bottom(a)
+    l = l.sort((a, b) => {
+      const bottomDiff = bottom(b) - bottom(a);
       return bottomDiff || x(b) - x(a)
     })
   }
 
   function Boundary (firstRow) {
-    var els = firstRow
+    const els = firstRow;
     sort(els)
 
-    this.add = function (el) {
+    this.add = el => {
       els.push(el)
       sort(els)
       els.pop()
     }
 
-    this.min = function () { return els[els.length - 1] }
-    this.max = function () { return els[0] }
+    this.min = () => els[els.length - 1]
+    this.max = () => els[0]
   }
 
   function placeEl (el, top, left) {
@@ -88,7 +86,7 @@
     return right(els[i - 1]) + width(els[i]) <= width(container)
   }
 
-  var els = container.children
+  const els = container.children;
 
   if (els.length) {
     placeFirstElement(els[0])
@@ -98,8 +96,8 @@
     placeAtTheFirstLine(els[i - 1], els[i])
   }
 
-  var firstRow = [].slice.call(els, 0, i)
-  var boundary = new Boundary(firstRow)
+  const firstRow = [].slice.call(els, 0, i);
+  const boundary = new Boundary(firstRow);
 
   for (; i < els.length; i++) {
     placeAtTheSmallestColumn(boundary.min(), els[i])
