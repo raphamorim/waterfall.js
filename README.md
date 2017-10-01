@@ -20,18 +20,16 @@ However; Waterfall always will consider items with **same width** :)
 
 #### Getting
 
-First at all, get Waterfall using [Download Option](https://github.com/raphamorim/waterfall.js/archive/master.zip) or via bower.
+First at all, get Waterfall using [Download Option](https://github.com/raphamorim/waterfall.js/archive/master.zip)
 
-To get using [Bower](http://bower.io) just run this command
-
-```sh
-bower install waterfall
-```
-
-Or get it using NPM by running this command
+Get it using npm or yarn by running this command
 
 ```sh
 npm install waterfall.js
+
+or
+
+yarn add waterfall.js
 ```
 
 You can import
