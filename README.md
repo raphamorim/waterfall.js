@@ -26,9 +26,11 @@ Get it using npm or yarn by running this command
 
 ```sh
 npm install waterfall.js
+```
 
 or
 
+```sh
 yarn add waterfall.js
 ```
 
