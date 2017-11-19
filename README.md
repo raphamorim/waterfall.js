@@ -25,14 +25,16 @@ First at all, get Waterfall using [Download Option](https://github.com/raphamori
 Get it using npm or yarn by running this command
 
 ```sh
-npm install waterfall.js
+npm install waterfall.js@1.0.2
 ```
 
 or
 
 ```sh
-yarn add waterfall.js
+yarn add waterfall.js@1.0.2
 ```
+
+:warning: The latest stable is waterfall-1.0.2 (which is used in the website), newest versions are suffering issues from a major rewrite.
 
 You can import
 
